@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-
+// import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -67,13 +66,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     fit: BoxFit.contain,
                     height: 55,
                   ),
-                  new Text("ทำนายราคากากถั่วเหลืองล่วงหน้า",
+                  const Text("ทำนายราคากากถั่วเหลืองล่วงหน้า",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style:
+                    TextStyle(
                       height: 0,
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 25.0,
                     ),
+
                   ),
                 ],
               ),
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Container(
               width: 630,
-              height: 310,
+              height: 380,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.amber,
@@ -116,7 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             // fontFamily: 'Arial',
                             fontSize: 18,
                             color: Colors.black,
-                          ),),
+                          ),
+                          ),
                           SizedBox(width: 40.0,),
                           SizedBox(
                           width: 200.0,
@@ -185,6 +187,24 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ]
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0 ,bottom: 30.0),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 455.0,),
+                          Container(
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green,
+                                    textStyle: TextStyle(fontSize: 16),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),),),
+                                onPressed: () {},
+                                child: const Text("ทำนาย")),
+                          ),
+                        ],
                       ),
                     ),
                     Padding(
