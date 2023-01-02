@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,20 +66,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     fit: BoxFit.contain,
                     height: 55,
                   ),
-                  const Text("ทำนายราคากากถั่วเหลืองล่วงหน้า",
+                  Text(
+                    'ทำนายราคากากถั่วเหลืองล่วงหน้า',
                     textAlign: TextAlign.center,
-                    style:
-                    TextStyle(
-                      height: 0,
-                      color: Colors.black,
-                      fontSize: 25.0,
+                    style: GoogleFonts.mitr(
+                      textStyle: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 25.0),
                     ),
-
                   ),
                 ],
               ),
               decoration: new BoxDecoration(
-                color: Colors.amber,
+                color: Colors.amber.shade300,
                 boxShadow: [new BoxShadow(blurRadius: 3.0)],
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(35.0)),
               ),
@@ -87,10 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              width: 2000,
               child: Row(
                 children: [
-                  Image.asset('asset/images/banner.jpg',
+                  Image.asset('asset/images/banner2.png',
                     fit: BoxFit.fill,
                     height: 200,
                   ),
@@ -103,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 380,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.amber,
+                color: Colors.amber.shade300,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(35.0),
@@ -113,10 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         children: [
-                          const Text('ราคากากถั่วเหลืองอเมริกา ',style: TextStyle(
-                            // fontFamily: 'Arial',
-                            fontSize: 18,
-                            color: Colors.black,
+                          Text('ราคากากถั่วเหลืองอเมริกา ',style: GoogleFonts.mitr(
+                            textStyle: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 18.0),
                           ),
                           ),
                           SizedBox(width: 40.0,),
@@ -137,12 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          const Text('ราคาน้ำมันดิบ ',style: TextStyle(
-                            // fontFamily: 'Arial',
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),),
-                          SizedBox(width: 125.0,),
+                          Text('ราคาน้ำมันดิบ ',style: GoogleFonts.mitr(
+                            textStyle: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 18.0),
+                          ),
+                          ),
+                          SizedBox(width: 129.0,),
                           SizedBox(
                             width: 200.0,
                             child: TextField(
@@ -160,11 +162,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         children: [
-                         const Text('เลือกเดือนที่ต้องการทำนายผล ',style: TextStyle(
-                            // fontFamily: 'Arial',
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),),
+                         Text('เลือกเดือนที่ต้องการทำนายผล ',style: GoogleFonts.mitr(
+                           textStyle: TextStyle(
+                               color: Colors.black87,
+                               fontSize: 18.0),
+                         ),),
                           SizedBox(width: 40.0,),
                           Container(
                             alignment: Alignment.center,
@@ -211,10 +213,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          const Text('ผลลัพธ์การทำนาย ',style: TextStyle(
-                            // fontFamily: 'Arial',
-                            fontSize: 18,
-                            color: Colors.black,
+                          Text('ผลลัพธ์การทำนาย ',style: GoogleFonts.mitr(
+                            textStyle: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 18.0),
                           ),
                           ),
                           SizedBox(width: 94.0,),
@@ -222,6 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: SizedBox(
                               width: 200.0,
                               child: TextField(
+                                readOnly: true,
                                 decoration: InputDecoration(
                                   labelText: ' ',
                                   filled: true,
@@ -230,11 +233,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                           ),
-                          const Text(' บาท/กิโลกรัม',textAlign : TextAlign.end, style: TextStyle(
-                            // fontFamily: 'Arial',
-                            fontSize: 18,
-                            color: Colors.black,
-
+                          Text(' บาท/กิโลกรัม',textAlign : TextAlign.end, style: GoogleFonts.mitr(
+                            textStyle: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 18.0),
                           ),
                           ),
 
