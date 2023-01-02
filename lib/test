@@ -1,23 +1,27 @@
-TextStyle(
-fontFamily: 'Chakra Petch',
-height: 0,
-color: Colors.black,
-fontSize: 25.0,
+Padding(
+padding: const EdgeInsets.all(20.0),
+child: Container(
+padding: EdgeInsets.all(0), // Border width
+decoration: BoxDecoration(color: Colors.red, borderRadius: borderRadius),
+child: ClipRRect(
+borderRadius: borderRadius,
+child: SizedBox.fromSize(
+size: Size.fromRadius(100), // Image radius
+child: Image.asset('asset/images/banner2.png', fit: BoxFit.cover),
 ),
-Text(
-'This is Google Fonts',
-style: GoogleFonts.athiti(
-textStyle: TextStyle(color: Colors.blue),
 ),
 ),
-
-Text("ทำนายราคากากถั่วเหลืองล่วงหน้า",
-textAlign: TextAlign.center,
-style: TextStyle(
-fontFamily: 'Chakra Petch',
-height: 0,
-color: Colors.black,
-fontSize: 25.0,
 ),
 
+SizedBox(
+child: Row(
+children: [
+Expanded(
+child: Image.asset('asset/images/banner2.png',
+fit: BoxFit.contain,
+height: 210,
+),
+),
+],
+),
 ),
