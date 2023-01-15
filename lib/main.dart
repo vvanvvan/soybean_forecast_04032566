@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,20 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'interface',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'interface'),
     );
   }
 }
@@ -51,186 +44,214 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
+    resizeToAvoidBottomInset: false,// appBar: AppBar(
       //   title: const Text('Soybean Forecast'),
       // ),
       backgroundColor: Color.fromRGBO(255, 194, 0, 0.15),
 
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: Row(
-                children: [
-                  Image.asset('asset/images/logo.png',
-                    fit: BoxFit.fill,
-                    height: 55,
-                  ),
-                  Text(
-                    'ทำนายราคากากถั่วเหลืองล่วงหน้า',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.mitr(
-                      textStyle: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 25.0),
-                    ),
-                  ),
-                ],
-              ),
-              decoration: new BoxDecoration(
-                color: Colors.amber.shade300,
-                boxShadow: [new BoxShadow(blurRadius: 3.0)],
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(35.0)),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: SizedBox(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 200,
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                          image: const DecorationImage(
-                              image: AssetImage('asset/images/banner2.png'),
-                              fit: BoxFit.cover
-                          ),
-                          borderRadius: BorderRadius.circular(30)
-                      ),
-                    )
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 21.0),
-            child: Container(
-                width: 630,
-                height: 380,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.amber.shade300,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(35.0),
-                  child: Column(
+      body: Center(
+        child: SingleChildScrollView(
+          // scrollDirection: Axis.horizontal,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          children: [
-                            Text('ราคากากถั่วเหลืองอเมริกา ',style: GoogleFonts.mitr(
-                              textStyle: TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 18.0),
-                            ),
-                            ),
-                            SizedBox(width: 40.0,),
-                            SizedBox(
-                            width: 200.0,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  labelText: 'กรอกตัวเลข',
-                                  filled: true,
-                                  fillColor: Colors.grey.shade50,
+                      Image.asset('asset/images/logo.png',
+                        fit: BoxFit.fill,
+                        height: 55,
+                      ),
+                      Text(
+                        'ทำนายราคากากถั่วเหลืองล่วงหน้า',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.mitr(
+                          textStyle: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 25.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  decoration: new BoxDecoration(
+                    color: Colors.amber.shade300,
+                    boxShadow: [new BoxShadow(blurRadius: 3.0)],
+                    borderRadius: BorderRadius.vertical(bottom: Radius.circular(35.0)),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: SizedBox(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          // alignment: Alignment.center,
+                          height: 200,
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          decoration: BoxDecoration(
+                              image: const DecorationImage(
+                                  image: AssetImage('asset/images/banner2.png'),
+                                  fit: BoxFit.cover
+                              ),
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Container(
+                    width: 550,
+                    height: 335,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.amber.shade300,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(35.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              children: [
+                                Text('ราคากากถั่วเหลืองอเมริกา ',style: GoogleFonts.mitr(
+                                  textStyle: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 18.0),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text('ราคาน้ำมันดิบ ',style: GoogleFonts.mitr(
-                              textStyle: TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 18.0),
-                            ),
-                            ),
-                            SizedBox(width: 129.0,),
-                            SizedBox(
-                              width: 200.0,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  labelText: 'กรอกตัวเลข',
-                                  filled: true,
-                                  fillColor: Colors.grey.shade50,
                                 ),
-                              ),
+                                SizedBox(width: 60.0,),
+                                SizedBox(
+                                width: 200.0,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'กรอกตัวเลข',
+                                      filled: true,
+                                      fillColor: Colors.grey.shade50,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+                            child: Row(
+                              children: [
+                                Text('ราคาน้ำมันดิบ ',style: GoogleFonts.mitr(
+                                  textStyle: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 18.0),
+                                ),
+                                ),
+                                SizedBox(width: 149.0,),
+                                SizedBox(
+                                  width: 200.0,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'กรอกตัวเลข',
+                                      filled: true,
+                                      fillColor: Colors.grey.shade50,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              children: [
+                               Text('เลือกเดือนที่ต้องการทำนายผล ',style: GoogleFonts.mitr(
+                                 textStyle: TextStyle(
+                                     color: Colors.black87,
+                                     fontSize: 18.0),
+                               ),),
+                                SizedBox(width: 30.0,),
+                                Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(color: Colors.grey.shade50,),
+                                  width: 200,
+                                  child: DropdownButton(
+                                    value: items[0],
+                                    items: items.map((country){
+                                      return DropdownMenuItem(
+                                        child: Text(country),
+                                        value: country,
+                                      );
+                                    }).toList(),
+                                    onChanged: (country){
+                                      print("You selected: $country");
+                                      setState(() {
+                                        // index =
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ]
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // SizedBox(width: 455.0,),
+                                Container(
+                                  height: 50,
+                                  width: 120,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          primary: Colors.green,
+                                          textStyle: TextStyle(fontSize: 20),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10.0),),),
+                                      onPressed: () {},
+                                      child: const Text("ทำนาย")),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          children: [
-                           Text('เลือกเดือนที่ต้องการทำนายผล ',style: GoogleFonts.mitr(
-                             textStyle: TextStyle(
-                                 color: Colors.black87,
-                                 fontSize: 18.0),
-                           ),),
-                            SizedBox(width: 40.0,),
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(color: Colors.grey.shade50,),
-                              width: 170,
-                              child: DropdownButton(
-                                value: items[0],
-                                items: items.map((country){
-                                  return DropdownMenuItem(
-                                    child: Text(country),
-                                    value: country,
-                                  );
-                                }).toList(),
-                                onChanged: (country){
-                                  print("You selected: $country");
-                                  setState(() {
-                                    // index =
-                                  });
-                                },
-                              ),
-                            ),
-                          ]
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0 ,bottom: 30.0),
-                        child: Row(
-                          children: [
-                            SizedBox(width: 455.0,),
-                            Container(
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.green,
-                                      textStyle: TextStyle(fontSize: 16),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),),),
-                                  onPressed: () {},
-                                  child: const Text("ทำนาย")),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text('ผลลัพธ์การทำนาย ',style: GoogleFonts.mitr(
-                              textStyle: TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 18.0),
-                            ),
-                            ),
-                            SizedBox(width: 94.0,),
-                            Container(
+                    ),
+
+
+                ),
+              ),
+              SizedBox(height: 20.0,),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Container(
+                    width: 550,
+                    height: 160,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.amber.shade300,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('ผลลัพธ์การทำนาย ',style: GoogleFonts.mitr(
+                            textStyle: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 18.0),
+                          ),
+                          ),
+                          SizedBox(width: 94.0,),
+                          Container(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
                               child: SizedBox(
                                 width: 200.0,
                                 child: TextField(
@@ -243,28 +264,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ),
                             ),
-                            Text(' บาท/กิโลกรัม',textAlign : TextAlign.end, style: GoogleFonts.mitr(
-                              textStyle: TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 18.0),
-                            ),
-                            ),
+                          ),
+                          Text('บาท/กิโลกรัม',textAlign : TextAlign.end, style: GoogleFonts.mitr(
+                            textStyle: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 18.0),
+                          ),
+                          ),
 
-                          ],
-                        ),
+                        ],
                       ),
-
-                    ],
+                    ),
                   ),
-                ),
+              ),
 
-
-            ),
+            ],
           ),
-        ],
+        ),
       ),
-
-
     );
   }
 }
