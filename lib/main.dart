@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'interface'),
+
     );
   }
 }
@@ -27,14 +28,13 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
-
-
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late AnimationController _controller;
   final List<String> items = [
     'มกราคม 2566',
     'กุมภาพันธ์ 2566',
@@ -42,10 +42,49 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   String? selectedValue;
 
+
+  void _fetchData(BuildContext context, [bool mounted = true]) async {
+    // show the loading dialog
+    showDialog(
+      // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+
+    // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
+    await Future.delayed(const Duration(seconds: 3));
+
+    // Close the dialog programmatically
+    // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
+    if (!mounted) return;
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       // appBar: AppBar(
       // title: Text('Soybean Forecast'),
@@ -229,12 +268,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                                 primary: Colors.green,
-                                                textStyle: TextStyle(fontSize: 20),
+                                                // textStyle: TextStyle(fontSize: 20),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(10.0),
                                                 ),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () => _fetchData(context),
                                             child: Text("ทำนาย" ,style: GoogleFonts.mitr(
                                               textStyle: TextStyle(
                                                   color: Colors.white,
@@ -270,7 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('ผลลัพธ์การทำนาย ',style: GoogleFonts.mitr(
+                            Text('ผลลัพธ์การทำนาย',style: GoogleFonts.mitr(
                               textStyle: TextStyle(
                                   color: Colors.black87,
                                   fontSize: 18.0),
@@ -299,7 +338,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   fontSize: 18.0),
                             ),
                             ),
-
                           ],
                         ),
                       ),
@@ -314,3 +352,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
+
