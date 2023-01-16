@@ -57,14 +57,20 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   // The loading indicator
                   CircularProgressIndicator(),
                   SizedBox(
                     height: 15,
                   ),
                   // Some text
-                  Text('Loading...')
+                  Text('รอแป๊ปดิ 💢',
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.mitr(
+                      textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0),
+                    ),)
                 ],
               ),
             ),
