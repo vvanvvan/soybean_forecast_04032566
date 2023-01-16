@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  device_manager:
+    dependency: "direct main"
+    description:
+      name: device_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   dropdown_button2:
     dependency: "direct main"
     description:
@@ -185,7 +192,7 @@ packages:
       name: path_provider_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "2.0.7"
   path_provider_platform_interface:
     dependency: transitive
     description:
