@@ -337,6 +337,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(color: Colors.grey.shade50,),
                                     width: 150,
+                                    height: 55,
                                     child: DropdownButton<String>(
                                       focusColor:Colors.white,
                                       value: _chosenValue,
