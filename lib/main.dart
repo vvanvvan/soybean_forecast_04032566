@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 15,
                   ),
                   // Some text
-                  Text('รอแป๊ปดิ 💢',
+                  Text('รอสักครู่',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.mitr(
                       textStyle: TextStyle(
@@ -160,8 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.only(top: 20.0),
                   child:  Container(
                       alignment: Alignment.bottomCenter,
-                      width: 550,
-                      height: 350, //335
+                      width: 685,
+                      height: 355, //335
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.amber.shade300,
@@ -174,17 +174,20 @@ class _MyHomePageState extends State<MyHomePage> {
                               padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Row(
                                 children: [
-                                    Expanded(
-                                      child: Text('ราคากากถั่วเหลืองอเมริกา ',style: GoogleFonts.mitr(
-                                        textStyle: TextStyle(
-                                            color: Colors.black87,
-                                            fontSize: 18.0),
-                                      ),
+                                    Container(
+                                      width: 260,
+                                      child: Expanded(
+                                        child: Text('ราคากากถั่วเหลืองของสหรัฐอเมริกา ',style: GoogleFonts.mitr(
+                                          textStyle: TextStyle(
+                                              color: Colors.black87,
+                                              fontSize: 18.0),
+                                         ),
+                                        ),
                                       ),
                                     ),
-                                  SizedBox(width: 60.0,),
+                                  SizedBox(width: 5.0,),
                                   SizedBox(
-                                  width: 200.0,
+                                  width: 150.0,
                                       child: TextField(
                                         decoration: InputDecoration(
                                           labelText: 'กรอกตัวเลข',
@@ -192,31 +195,51 @@ class _MyHomePageState extends State<MyHomePage> {
                                           fillColor: Colors.grey.shade50,
                                         ),
                                       ),
-
+                                    ),
+                                  SizedBox(width: 15.0,),
+                                  Expanded(
+                                    child: Text('ดอลลาร์สหรัฐ/ตัน',style: GoogleFonts.mitr(
+                                      textStyle: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 18.0),
+                                    ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
                               child: Row(
                                 children: [
-                              Expanded(
-                                 child: Text('ราคาน้ำมันดิบ ',style: GoogleFonts.mitr(
-                                    textStyle: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 18.0),
-                                  ),
-                                  ),
+                              Container(
+                                width: 170,
+                                child: Expanded(
+                                   child: Text('ราคาน้ำมันดิบ ',style: GoogleFonts.mitr(
+                                      textStyle: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 18.0),
+                                    ),
+                                   ),
+                                ),
                               ),
-                                  SizedBox(width: 149.0,),
+                                  SizedBox(width: 95.0,),
                                   SizedBox(
-                                    width: 200.0,
+                                    width: 150.0,
                                     child: TextField(
                                       decoration: InputDecoration(
                                         labelText: 'กรอกตัวเลข',
                                         filled: true,
                                         fillColor: Colors.grey.shade50,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 15.0,),
+                                  Expanded(
+                                    child: Text('ดอลลาร์สหรัฐ/บาร์เรล',style: GoogleFonts.mitr(
+                                      textStyle: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 18.0),
                                       ),
                                     ),
                                   ),
@@ -227,18 +250,21 @@ class _MyHomePageState extends State<MyHomePage> {
                               padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Row(
                                 children: [
-                                 Expanded(
-                                   child: Text('เลือกเดือนที่ต้องการทำนายผล ',style: GoogleFonts.mitr(
-                                     textStyle: TextStyle(
-                                         color: Colors.black87,
-                                         fontSize: 18.0),
-                                   ),),
+                                 Container(
+                                   width: 230,
+                                   child: Expanded(
+                                     child: Text('เลือกเดือนที่ต้องการทำนายผล ',style: GoogleFonts.mitr(
+                                       textStyle: TextStyle(
+                                           color: Colors.black87,
+                                           fontSize: 18.0),
+                                     ),),
+                                   ),
                                  ),
-                                  SizedBox(width: 30.0,),
+                                  SizedBox(width: 35.0,),
                                   Container(
-                                    alignment: Alignment.center,
+                                    alignment: Alignment.centerRight,
                                     decoration: BoxDecoration(color: Colors.grey.shade50,),
-                                    width: 200,
+                                    width: 150,
                                     child: DropdownButton(
                                       value: items[0],
                                       items: items.map((country){
@@ -304,18 +330,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Container(
-                      width: 550,
-                      height: 160,
+                      width: 685,
+                      height: 180,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.amber.shade300,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(17.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('ผลลัพธ์การทำนาย',style: GoogleFonts.mitr(
+                            Text('ผลลัพธ์การทำนายราคากากถั่วเหลืองนำเข้าไทย',style: GoogleFonts.mitr(
                               textStyle: TextStyle(
                                   color: Colors.black87,
                                   fontSize: 18.0),
@@ -324,7 +350,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             SizedBox(width: 94.0,),
                             Container(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 11.0),
+                                padding: const EdgeInsets.symmetric(vertical: 16.0),
                                 child: SizedBox(
                                   width: 200.0,
                                   child: TextField(
