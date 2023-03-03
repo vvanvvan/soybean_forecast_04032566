@@ -38,13 +38,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String dialogMonth = "เดือนเมษายน ปี2566";
-  List<String> listPriceTH = [
-    "เมษายน 2566",
-    "พฤษภาคม 2566",
+  List<Item> listPriceTH = [
+    Item("เมษายน", "2566"),
+    Item("พฤษภาคม", "2566"),
   ];
 
-  List<TextEditingController> controllers = [];
-
+  final _FieldController= TextEditingController();
   final _text1 = TextEditingController();  //textediting
   final _text2 = TextEditingController();// controller
   bool _validate1 = false;
@@ -118,86 +117,12 @@ class _MyHomePageState extends State<MyHomePage> {
     if (!mounted) return;
     Navigator.of(context).pop();
   }
-  Widget setDialog(){
-    return Container(
-      height: 300,
-      width: 300,
-      child: Wrap(
-        children: List<Widget>.generate(2, (int index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ConstrainedBox(
-              constraints: BoxConstraints.tight(const Size(200, 50)),
-              child:  TextFormField(
-                onSaved: (String? value) {
-                  debugPrint(
-                      'Value for field $index saved as "$value"');
-                },
-                style: GoogleFonts.mitr(
-                  textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0),
-                ),
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  labelStyle: GoogleFonts.mitr(
-                    textStyle: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 15.0),
-                  ),
-                  labelText: listPriceTH.elementAt(index),
-                  filled: true,
-                  fillColor: Colors.grey.shade50,
-                  errorText: _validate1 ? 'โปรดกรอกช่องนี้' : null,
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
 
-  // void showMonth(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: Text(
-  //         "กรอกราคากากถั่วเหลืองนำเข้าไทย (หน่วย: บาท/กิโลกรัม)",
-  //         style: GoogleFonts.mitr(
-  //           textStyle: TextStyle(
-  //               color: Colors.black,
-  //               fontSize: 18.0),
-  //         ),
-  //       ),
-  //       content:setDialog(),
-  //       actions: [
-  //         TextButton(
-  //           child: Text("ทำนาย",  style: GoogleFonts.mitr(
-  //             textStyle: TextStyle(
-  //                 color: Colors.black,
-  //                 fontSize: 18.0),
-  //           ),),
-  //           onPressed: () => Navigator.pop(context),),
-  //         TextButton(
-  //           child: Text("ยกเลิก",  style: GoogleFonts.mitr(
-  //             textStyle: TextStyle(
-  //                 color: Colors.black,
-  //                 fontSize: 18.0),
-  //           ),),
-  //           onPressed: () => Navigator.pop(context),),
-  //       ],
-  //     ),
-  //   );
-  //
-  // }
-
-  void showMN(BuildContext context) async {
+  void showMonth(BuildContext context) async {
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-
         title: Text(
           "กรอกราคากากถั่วเหลืองนำเข้าไทย (หน่วย: บาท/กิโลกรัม)",
           style: GoogleFonts.mitr(
@@ -206,7 +131,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontSize: 18.0),
           ),
         ),
-        content: setDialog(),
+        content:
+        TextField(
+          style: GoogleFonts.mitr(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 18.0),
+          ),
+          controller: _FieldController,
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(
+            labelStyle: GoogleFonts.mitr(
+              textStyle: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 15.0),
+            ),
+            labelText: dialogMonth ,
+            filled: true,
+            fillColor: Colors.grey.shade50,
+            errorText: _validate1 ? 'โปรดกรอกช่องนี้' : null,
+          ),
+        ),
         actions: [
           TextButton(
             child: Text("ทำนาย",  style: GoogleFonts.mitr(
@@ -214,8 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.black,
                   fontSize: 18.0),
             ),),
-            onPressed: () => Navigator.pop(context),
-          ),
+            onPressed: () => Navigator.pop(context),),
           TextButton(
             child: Text("ยกเลิก",  style: GoogleFonts.mitr(
               textStyle: TextStyle(
@@ -546,11 +490,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                             borderRadius: BorderRadius.circular(10.0),
                                           ),
                                         ),
-                                         onPressed:  () async {
-                                           showMN(context);
-                                          // showMonth(context);
-                                         },
-
+                                        onPressed:  () async {
+                                          showMonth(context);
+                                        },
                                         // () async {
                                         //
                                         //   _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
