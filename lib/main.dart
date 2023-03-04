@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 import 'API.dart';
 import 'dart:convert';
 
@@ -37,13 +37,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String dialogMonth = "เดือนเมษายน ปี2566";
   List<String> listPriceTH = [
     "เมษายน 2566",
     "พฤษภาคม 2566",
   ];
 
-  List<TextEditingController> controllers = [];
 
   final _text1 = TextEditingController();  //textediting
   final _text2 = TextEditingController();// controller
@@ -103,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       textStyle: TextStyle(
                           color: Colors.black,
                           fontSize: 18.0),
-                    ),),
+                    ),)
                 ],
               ),
             ),
@@ -118,79 +116,48 @@ class _MyHomePageState extends State<MyHomePage> {
     if (!mounted) return;
     Navigator.of(context).pop();
   }
+
   Widget setDialog(){
     return Container(
-      height: 300,
-      width: 300,
-      child: Wrap(
-        children: List<Widget>.generate(2, (int index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ConstrainedBox(
-              constraints: BoxConstraints.tight(const Size(200, 50)),
-              child:  TextFormField(
-                onSaved: (String? value) {
-                  debugPrint(
-                      'Value for field $index saved as "$value"');
-                },
-                style: GoogleFonts.mitr(
-                  textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0),
-                ),
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  labelStyle: GoogleFonts.mitr(
-                    textStyle: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 15.0),
+      height: 200,
+      width: 200,
+      child: Center(
+        child:  Form(
+          autovalidateMode: AutovalidateMode.always,
+          onChanged: () {
+            Form.of(primaryFocus!.context!)?.save();
+          },
+          child: Wrap(
+            children: List<Widget>.generate(2, (int index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.tight(const Size(200, 50)),
+                  child: TextFormField(
+                    decoration:  InputDecoration (
+                      // hintText: "กรอกตัวเลข",
+                      labelText: listPriceTH.elementAt(index),
+                      labelStyle: GoogleFonts.mitr(
+                        textStyle: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18.0),
+                      ),
+                    ),
+                    onSaved: (String? value) {
+                      debugPrint(
+                          'Value for field $index saved as "$value"');
+                    },
                   ),
-                  labelText: listPriceTH.elementAt(index),
-                  filled: true,
-                  fillColor: Colors.grey.shade50,
-                  errorText: _validate1 ? 'โปรดกรอกช่องนี้' : null,
                 ),
-              ),
-            ),
-          );
-        }),
+              );
+            }),
+          ),
+        ),
+
+
       ),
     );
   }
-
-  // void showMonth(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: Text(
-  //         "กรอกราคากากถั่วเหลืองนำเข้าไทย (หน่วย: บาท/กิโลกรัม)",
-  //         style: GoogleFonts.mitr(
-  //           textStyle: TextStyle(
-  //               color: Colors.black,
-  //               fontSize: 18.0),
-  //         ),
-  //       ),
-  //       content:setDialog(),
-  //       actions: [
-  //         TextButton(
-  //           child: Text("ทำนาย",  style: GoogleFonts.mitr(
-  //             textStyle: TextStyle(
-  //                 color: Colors.black,
-  //                 fontSize: 18.0),
-  //           ),),
-  //           onPressed: () => Navigator.pop(context),),
-  //         TextButton(
-  //           child: Text("ยกเลิก",  style: GoogleFonts.mitr(
-  //             textStyle: TextStyle(
-  //                 color: Colors.black,
-  //                 fontSize: 18.0),
-  //           ),),
-  //           onPressed: () => Navigator.pop(context),),
-  //       ],
-  //     ),
-  //   );
-  //
-  // }
 
   void showMN(BuildContext context) async {
 
@@ -234,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
     var now = new DateTime.now();
-    // var formatter = new DateFormat('MM-yyyy');
+    var formatter = new DateFormat('MM-yyyy');
     var MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
     String formattedDateTime(int num) {
@@ -546,36 +513,33 @@ class _MyHomePageState extends State<MyHomePage> {
                                             borderRadius: BorderRadius.circular(10.0),
                                           ),
                                         ),
-                                         onPressed:  () async {
-                                           showMN(context);
-                                          // showMonth(context);
-                                         },
+                                        onPressed: () async {
+                                          _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+                                          _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+                                          if(_validate2==false&&_validate1==false) {
+                                            url =
+                                            "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
+                                            print(url);
+                                            _fetchData(context);
+                                            Data = await Getdata(url);
+                                            var DecodedData = jsonDecode(Data);
+                                            print('DecodedData $DecodedData');
+                                            print('Data $Data');
+                                            setState(() {
+                                              QueryText = DecodedData.toString();
 
-                                        // () async {
-                                        //
-                                        //   _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
-                                        //   _text2.text.isEmpty ? _validate2 = true : _validate2= false;
-                                        //   if(_validate2==false&&_validate1==false) {
-                                        //     url =
-                                        //     "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
-                                        //     print(url);
-                                        //     _fetchData(context);
-                                        //     Data = await Getdata(url);
-                                        //     var DecodedData = jsonDecode(Data);
-                                        //     print('DecodedData $DecodedData');
-                                        //     print('Data $Data');
-                                        //     setState(() {
-                                        //       QueryText = DecodedData.toString();
-                                        //
-                                        //       print(QueryText + 'wan');
-                                        //     });
-                                        //   }else{
-                                        //     setState(() {
-                                        //       _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
-                                        //       _text2.text.isEmpty ? _validate2 = true : _validate2= false;
-                                        //     });
-                                        //   }
-                                        // },
+                                              print(QueryText + 'wan');
+                                            });
+                                          }else{
+                                            setState(() {
+                                              _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+                                              _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+                                            });
+                                          }
+                                          if( !_text1.text.isEmpty && !_text2.text.isEmpty) {
+                                            showMN(context);
+                                          }
+                                        },
                                         child: Text("ทำนาย" ,style: GoogleFonts.mitr(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -662,15 +626,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-
       ),
     );
   }
 }
 
-class Item {
-  final String Month;
-  final String Year;
 
-  Item(this.Month, this.Year);
-}
