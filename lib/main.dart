@@ -135,6 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints.tight(const Size(200, 50)),
                   child: TextFormField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)')),
+                      FilteringTextInputFormatter.deny(RegExp(r'^0+'), ),],
                     decoration:  InputDecoration (
                       // hintText: "กรอกตัวเลข",
                       labelText: listPriceTH.elementAt(index),
@@ -342,6 +345,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 70,
                                     width: 150.0,
                                     child: TextField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)')),
+                                        FilteringTextInputFormatter.deny(RegExp(r'^0+'), ),],
                                       style: GoogleFonts.mitr(
                                         textStyle: TextStyle(
                                             color: Colors.black,
@@ -404,6 +410,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 70,
                                     width: 150.0,
                                     child: TextField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)')),
+                                        FilteringTextInputFormatter.deny(RegExp(r'^0+'), ),],
                                       style: GoogleFonts.mitr(
                                         textStyle: TextStyle(
                                             color: Colors.black,
