@@ -115,6 +115,115 @@ class _MyHomePageState extends State<MyHomePage> {
     // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
     if (!mounted) return;
     Navigator.of(context).pop();
+    Navigator.of(context).pop(showDialogMonth);
+  }
+
+  Widget setDialog() {
+    return Container(
+      height: 200,
+      width: 200,
+      child: Center(
+        child:  Form(
+          autovalidateMode: AutovalidateMode.always,
+          onChanged: () {
+            Form.of(primaryFocus!.context!)?.save();
+          },
+          child: Wrap(
+            children: List<Widget>.generate(2, (int index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.tight(const Size(200, 50)),
+                  child: TextFormField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)')),
+                      FilteringTextInputFormatter.deny(RegExp(r'^0+'), ),],
+                    decoration:  InputDecoration (
+                      // hintText: "กรอกตัวเลข",
+                      labelText: listPriceTH.elementAt(index),
+                      labelStyle: GoogleFonts.mitr(
+                        textStyle: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18.0),
+                      ),
+                    ),
+                    onSaved: (String? value) {
+                      debugPrint(
+                          'Value for field $index saved as "$value"');
+                    },
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+
+
+      ),
+    );
+  }
+
+  void showDialogMonth(BuildContext context) async {
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+
+        title: Text(
+          "กรอกราคากากถั่วเหลืองนำเข้าไทย (หน่วย: บาท/กิโลกรัม)",
+          style: GoogleFonts.mitr(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 18.0),
+          ),
+        ),
+        content: setDialog(),
+        actions: [
+          TextButton(
+            child: Text("ทำนาย",  style: GoogleFonts.mitr(
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0),
+            ),),
+            onPressed: () async {
+              _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+              _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+              if(_validate2==false&&_validate1==false) {
+                url =
+                "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
+                print(url);
+                _fetchData(context);
+                Data = await Getdata(url);
+                var DecodedData = jsonDecode(Data);
+                print('DecodedData $DecodedData');
+                print('Data $Data');
+                setState(() {
+                  QueryText = DecodedData.toString();
+
+                  print(QueryText + 'wan');
+                });
+              }else{
+                setState(() {
+                  _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+                  _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+                });
+              }
+              //  Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text("ยกเลิก",  style: GoogleFonts.mitr(
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0),
+            ),),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+
+      ),
+    );
+
   }
 
   @override
@@ -444,26 +553,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                           _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                           _text2.text.isEmpty ? _validate2 = true : _validate2= false;
                                           if(_validate2==false&&_validate1==false) {
-                                            url =
-                                            "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
-                                            print(url);
-                                            _fetchData(context);
-                                            Data = await Getdata(url);
-                                            var DecodedData = jsonDecode(Data);
-                                            print('DecodedData $DecodedData');
-                                            print('Data $Data');
-                                            setState(() {
-                                              QueryText = DecodedData.toString();
-
-                                              print(QueryText + 'wan');
-                                            });
+                                            showDialogMonth(context);
                                           }else{
                                             setState(() {
                                               _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                               _text2.text.isEmpty ? _validate2 = true : _validate2= false;
                                             });
                                           }
-                                          //  Navigator.of(context).pop();
                                         },
                                         child: Text("ทำนาย" ,style: GoogleFonts.mitr(
                                           textStyle: TextStyle(
