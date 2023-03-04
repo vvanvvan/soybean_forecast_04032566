@@ -47,12 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
   final _text2 = TextEditingController();// controller
   bool _validate1 = false;
   bool _validate2= false;//variable to store the bool value
-  final List<String> items = [
-    'อิอิ',
-    'มกราคม 2566',
-    'กุมภาพันธ์ 2566',
-    'มีนาคม 2566',
-  ];
+  // final List<String> items = [
+  //   'อิอิ',
+  //   'มกราคม 2566',
+  //   'กุมภาพันธ์ 2566',
+  //   'มีนาคม 2566',
+  // ];
   String? _chosenValue;
   int index=0;
   String? selectedValue;
@@ -109,15 +109,16 @@ class _MyHomePageState extends State<MyHomePage> {
         });
 
     // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
-    await Future.delayed(const Duration(seconds: 6));
+    await Future.delayed(const Duration(seconds: 2));
 
     // Close the dialog programmatically
     // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
     if (!mounted) return;
     Navigator.of(context).pop();
+    Navigator.of(context).pop(showDialogMonth);
   }
 
-  Widget setDialog(){
+  Widget setDialog() {
     return Container(
       height: 200,
       width: 200,
@@ -159,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void showMN(BuildContext context) async {
+  void showDialogMonth(BuildContext context) async {
 
     showDialog(
       context: context,
@@ -181,7 +182,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.black,
                   fontSize: 18.0),
             ),),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () async {
+              _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+              _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+              if(_validate2==false&&_validate1==false) {
+                url =
+                "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
+                print(url);
+                _fetchData(context);
+                Data = await Getdata(url);
+                var DecodedData = jsonDecode(Data);
+                print('DecodedData $DecodedData');
+                print('Data $Data');
+                setState(() {
+                  QueryText = DecodedData.toString();
+
+                  print(QueryText + 'wan');
+                });
+              }else{
+                setState(() {
+                  _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+                  _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+                });
+              }
+              //  Navigator.of(context).pop();
+            },
           ),
           TextButton(
             child: Text("ยกเลิก",  style: GoogleFonts.mitr(
@@ -189,8 +214,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.black,
                   fontSize: 18.0),
             ),),
-            onPressed: () => Navigator.pop(context),),
+            onPressed: () => Navigator.pop(context),
+          ),
         ],
+
       ),
     );
 
@@ -517,27 +544,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                           _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                           _text2.text.isEmpty ? _validate2 = true : _validate2= false;
                                           if(_validate2==false&&_validate1==false) {
-                                            url =
-                                            "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
-                                            print(url);
-                                            _fetchData(context);
-                                            Data = await Getdata(url);
-                                            var DecodedData = jsonDecode(Data);
-                                            print('DecodedData $DecodedData');
-                                            print('Data $Data');
-                                            setState(() {
-                                              QueryText = DecodedData.toString();
-
-                                              print(QueryText + 'wan');
-                                            });
+                                            showDialogMonth(context);
                                           }else{
                                             setState(() {
                                               _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                               _text2.text.isEmpty ? _validate2 = true : _validate2= false;
                                             });
-                                          }
-                                          if( !_text1.text.isEmpty && !_text2.text.isEmpty) {
-                                            showMN(context);
                                           }
                                         },
                                         child: Text("ทำนาย" ,style: GoogleFonts.mitr(
