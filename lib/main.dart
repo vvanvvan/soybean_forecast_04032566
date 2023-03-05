@@ -362,76 +362,69 @@ class _MyHomePageState extends State<MyHomePage> {
                                     // decoration: BoxDecoration(color: Colors.grey.shade50,),
                                     height: 70,
                                     width: 150.0,
-                                    child: Form(
-                                      key: _formKey,
-                                      child: DropdownButtonFormField2(
-                                        alignment: Alignment.center,
-                                        isExpanded: true,
-                                        // focusColor:Colors.white,
-                                        value: _chosenValue,
-                                        decoration: InputDecoration(
-                                          contentPadding: const EdgeInsets.only(bottom: 16.0, left: 10.0),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          // enabledBorder: OutlineInputBorder( //<-- SEE HERE
-                                          //   borderSide: BorderSide(color: Colors.white, width: 1),
-                                          // ),
-                                          // focusedBorder: OutlineInputBorder( //<-- SEE HERE
-                                          //   borderSide: BorderSide(color: Colors.white, width: 1),
-                                          // ),
-                                          //Add more decoration as you want here
-                                          //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                        ),
-                                        isDense: true,
-                                        items: items.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text (value,
-                                              style:GoogleFonts.mitr(
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                        validator: (value) {
-                                          if (value == null) {
-                                            return 'โปรดเลือกเดือน';
-                                          }
-                                          return null;
-                                        },
-                                        hint:Text(
-                                          "เลือกเดือน",
-                                          style: GoogleFonts.mitr(
-                                            textStyle: TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: 15.0),
+                                    child: Expanded(
+                                      child: Form(
+                                        key: _formKey,
+                                        child: DropdownButtonFormField2(
+                                          isExpanded: true,
+                                          // focusColor:Colors.white,
+                                          value: _chosenValue,
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.white,
                                           ),
-                                        ),
-                                        onChanged: (String? value) {
+                                          // isDense: true,
+                                          items: items.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text (value,
+                                                // overflow: TextOverflow.ellipsis,
+                                                style:GoogleFonts.mitr(
+                                                  textStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0),
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return 'โปรดเลือกเดือน';
+                                            }
+                                            return null;
+                                          },
+                                          hint:Text(
+                                            "โปรดเลือกเดือน",
+                                            style: GoogleFonts.mitr(
+                                              textStyle: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          onChanged: (String? value) {
 
-                                          final splitted = value?.split(' ');
-                                          print(splitted![0]);
-                                          switch(splitted[0]){
-                                            case "มกราคม" : {valueMonth='1'; valueYear=splitted[1];} break;
-                                            case "กุมภาพันธ์" : {valueMonth='2'; valueYear=splitted[1];}break;
-                                            case "มีนาคม" : {valueMonth='3'; valueYear=splitted[1];} break;
-                                            case "เมษายน" : {valueMonth='4'; valueYear=splitted[1];} break;
-                                            case "พฤษภาคม" : {valueMonth='5'; valueYear=splitted[1];} break;
-                                            case "มิถุนายน" : {valueMonth='6'; valueYear=splitted[1];} break;
-                                            case "กรกฎาคม" : {valueMonth='7'; valueYear=splitted[1];} break;
-                                            case "สิงหาคม" : {valueMonth='8'; valueYear=splitted[1];} break;
-                                            case "กันยายน" : {valueMonth='9'; valueYear=splitted[1];} break;
-                                            case "ตุลาคม" :{valueMonth='10'; valueYear=splitted[1];} break;
-                                            case "พฤศจิกายน" : {valueMonth='11'; valueYear=splitted[1];} break;
-                                            case "ธันวาคม" : {valueMonth='12'; valueYear=splitted[1];} break;
-                                          }
-                                          print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
-                                          setState(() {
-                                            _chosenValue = value;
-                                          });
-                                        },
+                                            final splitted = value?.split(' ');
+                                            print(splitted![0]);
+                                            switch(splitted[0]){
+                                              case "มกราคม" : {valueMonth='1'; valueYear=splitted[1];} break;
+                                              case "กุมภาพันธ์" : {valueMonth='2'; valueYear=splitted[1];}break;
+                                              case "มีนาคม" : {valueMonth='3'; valueYear=splitted[1];} break;
+                                              case "เมษายน" : {valueMonth='4'; valueYear=splitted[1];} break;
+                                              case "พฤษภาคม" : {valueMonth='5'; valueYear=splitted[1];} break;
+                                              case "มิถุนายน" : {valueMonth='6'; valueYear=splitted[1];} break;
+                                              case "กรกฎาคม" : {valueMonth='7'; valueYear=splitted[1];} break;
+                                              case "สิงหาคม" : {valueMonth='8'; valueYear=splitted[1];} break;
+                                              case "กันยายน" : {valueMonth='9'; valueYear=splitted[1];} break;
+                                              case "ตุลาคม" :{valueMonth='10'; valueYear=splitted[1];} break;
+                                              case "พฤศจิกายน" : {valueMonth='11'; valueYear=splitted[1];} break;
+                                              case "ธันวาคม" : {valueMonth='12'; valueYear=splitted[1];} break;
+                                            }
+                                            print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
+                                            setState(() {
+                                              _chosenValue = value;
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -440,7 +433,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.only(top: 30.0),
+                            padding: const EdgeInsets.only(top: 15.0),
                             child: Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
