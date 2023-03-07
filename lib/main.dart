@@ -141,15 +141,14 @@ class _MyHomePageState extends State<MyHomePage> {
       int count = now.year+543;
       // var new_year = new DateTime(2567, num);
       var year = count+1;
-      /// print("เดือน $num");
-      ///print(MONTHS[num]);
+      // print("เดือน $num");
+      //print(MONTHS[num]);
       return MONTHS[num-1]+" "+year.toString();
     }
 
 
 
     int count = now.month;
-    int count2 = now.year+543;
     int countYear = 1;
     var count_month=12;
 
@@ -159,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if(count > 12){
         items.add(formattedDateOver(countYear));
-        print(countYear);
+        // print(countYear);
         countYear++;
       }else{
         items.add(formattedDateTime(i));
