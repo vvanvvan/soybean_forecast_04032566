@@ -38,10 +38,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> listPriceTH = [
-    "เมษายน 2566",
-    "พฤษภาคม 2566",
-  ];
+
+  var validdrop = Text ("โปรดเลือกเดือน",
+    // overflow: TextOverflow.fade,
+    style:GoogleFonts.mitr(
+      textStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16.0),
+    ),
+  );
 
   final _formKey = GlobalKey<FormState>();
   final _text1 = TextEditingController();  //textediting
@@ -257,6 +262,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         filled: true,
                                         fillColor: Colors.grey.shade50,
                                         errorText: _validate1 ? 'โปรดกรอกช่องนี้' : null,
+                                        // errorStyle: GoogleFonts.mitr(
+                                        //   textStyle: TextStyle(
+                                        //       color: Colors.red,
+                                        //       fontSize: 12.0),
+                                        // )
                                       ),
 
                                       onChanged: (value) {
@@ -322,6 +332,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         filled: true,
                                         fillColor: Colors.grey.shade50,
                                         errorText: _validate2 ? 'โปรดกรอกช่องนี้' : null,
+                                          // errorStyle: GoogleFonts.mitr(
+                                          //   textStyle: TextStyle(
+                                          //       color: Colors.red,
+                                          //       fontSize: 12.0),
+                                          // ),
                                       ),
                                       onChanged: (value) {
                                         valueOil=value;
@@ -362,69 +377,74 @@ class _MyHomePageState extends State<MyHomePage> {
                                     // decoration: BoxDecoration(color: Colors.grey.shade50,),
                                     height: 70,
                                     width: 150.0,
-                                    child: Expanded(
-                                      child: Form(
-                                        key: _formKey,
-                                        child: DropdownButtonFormField2(
-                                          isExpanded: true,
-                                          // focusColor:Colors.white,
-                                          value: _chosenValue,
-                                          decoration: InputDecoration(
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
-                                          // isDense: true,
-                                          items: items.map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text (value,
+                                    child: Form(
+                                      key: _formKey,
+                                      child: DropdownButtonFormField(
+                                        isExpanded: true,
+                                        isDense: true,
+                                        // focusColor:Colors.white,
+                                        style: GoogleFonts.mitr(
+                                            textStyle: TextStyle(
                                                 // overflow: TextOverflow.ellipsis,
-                                                style:GoogleFonts.mitr(
-                                                  textStyle: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 15.0),
-                                                ),
-                                              ),
-                                            );
-                                          }).toList(),
-                                          validator: (value) {
-                                            if (value == null) {
-                                              return 'โปรดเลือกเดือน';
-                                            }
-                                            return null;
-                                          },
-                                          hint:Text(
-                                            "โปรดเลือกเดือน",
-                                            style: GoogleFonts.mitr(
-                                              textStyle: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontSize: 15.0),
-                                            ),
+                                                color: Colors.black,
+                                                fontSize: 16.0),
                                           ),
-                                          onChanged: (String? value) {
-
-                                            final splitted = value?.split(' ');
-                                            print(splitted![0]);
-                                            switch(splitted[0]){
-                                              case "มกราคม" : {valueMonth='1'; valueYear=splitted[1];} break;
-                                              case "กุมภาพันธ์" : {valueMonth='2'; valueYear=splitted[1];}break;
-                                              case "มีนาคม" : {valueMonth='3'; valueYear=splitted[1];} break;
-                                              case "เมษายน" : {valueMonth='4'; valueYear=splitted[1];} break;
-                                              case "พฤษภาคม" : {valueMonth='5'; valueYear=splitted[1];} break;
-                                              case "มิถุนายน" : {valueMonth='6'; valueYear=splitted[1];} break;
-                                              case "กรกฎาคม" : {valueMonth='7'; valueYear=splitted[1];} break;
-                                              case "สิงหาคม" : {valueMonth='8'; valueYear=splitted[1];} break;
-                                              case "กันยายน" : {valueMonth='9'; valueYear=splitted[1];} break;
-                                              case "ตุลาคม" :{valueMonth='10'; valueYear=splitted[1];} break;
-                                              case "พฤศจิกายน" : {valueMonth='11'; valueYear=splitted[1];} break;
-                                              case "ธันวาคม" : {valueMonth='12'; valueYear=splitted[1];} break;
-                                            }
-                                            print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
-                                            setState(() {
-                                              _chosenValue = value;
-                                            });
-                                          },
+                                        value: _chosenValue,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
                                         ),
+                                        // isDense: true,
+                                        items: items.map<DropdownMenuItem<String>>((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text (value,
+                                              // overflow: TextOverflow.fade,
+                                              style:GoogleFonts.mitr(
+                                                textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16.0),
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "โปรดเลือกเดือน";
+                                          }
+                                          return null;
+                                        },
+                                        hint:Text(
+                                          "เลือกเดือน",
+                                          style: GoogleFonts.mitr(
+                                            textStyle: TextStyle(
+                                                color: Colors.blue,
+                                                fontSize: 15.0),
+                                          ),
+                                        ),
+                                        onChanged: (String? value) {
+
+                                          final splitted = value?.split(' ');
+                                          print(splitted![0]);
+                                          switch(splitted[0]){
+                                            case "มกราคม" : {valueMonth='1'; valueYear=splitted[1];} break;
+                                            case "กุมภาพันธ์" : {valueMonth='2'; valueYear=splitted[1];}break;
+                                            case "มีนาคม" : {valueMonth='3'; valueYear=splitted[1];} break;
+                                            case "เมษายน" : {valueMonth='4'; valueYear=splitted[1];} break;
+                                            case "พฤษภาคม" : {valueMonth='5'; valueYear=splitted[1];} break;
+                                            case "มิถุนายน" : {valueMonth='6'; valueYear=splitted[1];} break;
+                                            case "กรกฎาคม" : {valueMonth='7'; valueYear=splitted[1];} break;
+                                            case "สิงหาคม" : {valueMonth='8'; valueYear=splitted[1];} break;
+                                            case "กันยายน" : {valueMonth='9'; valueYear=splitted[1];} break;
+                                            case "ตุลาคม" :{valueMonth='10'; valueYear=splitted[1];} break;
+                                            case "พฤศจิกายน" : {valueMonth='11'; valueYear=splitted[1];} break;
+                                            case "ธันวาคม" : {valueMonth='12'; valueYear=splitted[1];} break;
+                                          }
+                                          print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
+                                          setState(() {
+                                            _chosenValue = value;
+                                          });
+                                        },
                                       ),
                                     ),
                                   ),
