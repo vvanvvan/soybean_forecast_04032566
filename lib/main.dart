@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'API.dart';
 import 'dart:convert';
-
+import 'package:jiffy/jiffy.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _validate1 = false;
   bool _validate2= false;//variable to store the bool value
   // final List<String> items = [
-  //   'อิอิ',
   //   'มกราคม 2566',
   //   'กุมภาพันธ์ 2566',
   //   'มีนาคม 2566',
@@ -131,15 +130,41 @@ class _MyHomePageState extends State<MyHomePage> {
     var formatter = new DateFormat('MM-yyyy');
     var MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
+    final List<String> items = [];
     String formattedDateTime(int num) {
       DateTime now = new DateTime.now();
       var years = now.year+543;
       return MONTHS[now.month+num]+" "+years.toString();
     }
-    final List<String> items = [];
-    var count_month=5;
+
+    String formattedDateOver(int num) {
+      int count = now.year+543;
+      // var new_year = new DateTime(2567, num);
+      var year = count+1;
+      /// print("เดือน $num");
+      ///print(MONTHS[num]);
+      return MONTHS[num-1]+" "+year.toString();
+    }
+
+
+
+    int count = now.month;
+    int count2 = now.year+543;
+    int countYear = 1;
+    var count_month=12;
+
     for(int i=0;i<count_month;++i) {
-      items.add(formattedDateTime(i));
+      count++;
+      // print(count);
+
+      if(count > 12){
+        items.add(formattedDateOver(countYear));
+        print(countYear);
+        countYear++;
+      }else{
+        items.add(formattedDateTime(i));
+
+      }
     }
     return Scaffold(
       // appBar: AppBar(
@@ -387,7 +412,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             textStyle: TextStyle(
                                                 // overflow: TextOverflow.ellipsis,
                                                 color: Colors.black,
-                                                fontSize: 16.0),
+                                                fontSize: 18.0),
                                           ),
                                         value: _chosenValue,
                                         decoration: InputDecoration(
