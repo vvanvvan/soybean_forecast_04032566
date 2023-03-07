@@ -211,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child:  Container(
                     alignment: Alignment.bottomCenter,
                     width: 685,
-                    height: 385,
+                    height: 390,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.amber.shade300,
