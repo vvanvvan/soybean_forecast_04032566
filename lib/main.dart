@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'API.dart';
 import 'dart:convert';
-import 'package:jiffy/jiffy.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _text2 = TextEditingController();// controller
   bool _validate1 = false;
   bool _validate2= false;//variable to store the bool value
+  bool _validate3= false;
   // final List<String> items = [
   //   'มกราคม 2566',
   //   'กุมภาพันธ์ 2566',
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
 
     // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 5));
 
     // Close the dialog programmatically
     // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
@@ -127,7 +127,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
     var now = new DateTime.now();
-    var formatter = new DateFormat('MM-yyyy');
     var MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
     final List<String> items = [];
@@ -356,11 +355,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         filled: true,
                                         fillColor: Colors.grey.shade50,
                                         errorText: _validate2 ? 'โปรดกรอกช่องนี้' : null,
-                                          // errorStyle: GoogleFonts.mitr(
-                                          //   textStyle: TextStyle(
-                                          //       color: Colors.red,
-                                          //       fontSize: 12.0),
-                                          // ),
+                                        // errorStyle: GoogleFonts.mitr(
+                                        //   textStyle: TextStyle(
+                                        //       color: Colors.red,
+                                        //       fontSize: 12.0),
+                                        // ),
                                       ),
                                       onChanged: (value) {
                                         valueOil=value;
@@ -408,11 +407,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         isDense: true,
                                         // focusColor:Colors.white,
                                         style: GoogleFonts.mitr(
-                                            textStyle: TextStyle(
-                                                // overflow: TextOverflow.ellipsis,
-                                                color: Colors.black,
-                                                fontSize: 18.0),
-                                          ),
+                                          textStyle: TextStyle(
+                                            // overflow: TextOverflow.ellipsis,
+                                              color: Colors.black,
+                                              fontSize: 18.0),
+                                        ),
                                         value: _chosenValue,
                                         decoration: InputDecoration(
                                           filled: true,
@@ -434,7 +433,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                         }).toList(),
                                         validator: (value) {
                                           if (value == null) {
+                                            _validate3 = true;
                                             return "โปรดเลือกเดือน";
+                                          }else{
+                                            _validate3 = false;
                                           }
                                           return null;
                                         },
@@ -503,7 +505,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           }
                                           _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                           _text2.text.isEmpty ? _validate2 = true : _validate2= false;
-                                          if(_validate2==false&&_validate1==false) {
+                                          if(_validate2==false&&_validate1==false&&_validate3==false) {
                                             url =
                                             "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
                                             print(url);
@@ -521,6 +523,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             setState(() {
                                               _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                               _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+
                                             });
                                           }
                                           //  Navigator.of(context).pop();
