@@ -49,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
           fontSize: 16.0),
     ),
   );
+
+  bool _inLoading = false;
   int _selectedIndex = 0;
   final _formKey = GlobalKey<FormState>();
   final _text1 = TextEditingController();  //textediting
@@ -134,7 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
     if (!mounted) return;
     Navigator.of(context).pop();
+
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -417,6 +422,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     child: Form(
                                       key: _formKey,
                                       child: DropdownButtonFormField(
+                                        dropdownColor: Colors.white,
                                         isExpanded: true,
                                         isDense: true,
                                         // focusColor:Colors.white,
