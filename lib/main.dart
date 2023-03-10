@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'API.dart';
 import 'dart:convert';
 
+import 'TrainPage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'interface',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        canvasColor: Colors.amber.shade300,
       ),
       home: const MyHomePage(title: 'interface'),
 
@@ -46,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fontSize: 16.0),
     ),
   );
-
+  int _selectedIndex = 0;
   final _formKey = GlobalKey<FormState>();
   final _text1 = TextEditingController();  //textediting
   final _text2 = TextEditingController();// controller
@@ -71,6 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
   String valueMonth='';
   String valueYear='';
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      print( _selectedIndex);
+      if( _selectedIndex == 0){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyApp()));
+      }else if( _selectedIndex == 1){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
+      }
+    });
+  }
   void dispose1() {
     _text1.dispose();
     super.dispose();
@@ -614,6 +628,32 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timeline),
+            label: 'ทำนายราคา',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.psychology),
+            label: 'เทรนโมเดล',
+          ),
+        ],
+        selectedLabelStyle: GoogleFonts.mitr(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 20.0),
+          ),
+        unselectedLabelStyle:  GoogleFonts.mitr(
+          textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 18.0),
+        ),
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.black54,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
