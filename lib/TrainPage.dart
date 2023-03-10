@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if( _selectedIndex == 0){
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyApp()));
       }else if( _selectedIndex == 1){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage())); //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
       }
     });
   }
