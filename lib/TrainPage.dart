@@ -495,6 +495,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                           if(_validate2==false&&_formKey.currentState!.validate()) {
                                             showDialogUpdate(context);
+                                            url = "http://127.0.0.1:5000/api?New_Month=$valueMonth&Year=$valueYear&priceThai=$valueThai";
+                                            print(url);
+                                            Data = await Getdata(url);
+                                            var DecodedData = jsonDecode(Data);
+                                            print('DecodedData $DecodedData');
+                                            print('Data $Data');
+                                            setState(() {
+                                              QueryText = DecodedData.toString();
+
+                                            });
+
                                           }else{
                                             setState(() {
                                               _text2.text.isEmpty ? _validate2 = true : _validate2= false;
@@ -504,18 +515,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                           if (_formKey.currentState!.validate()) {
                                             _formKey.currentState!.save();
                                           }
-
-
-                                          url = "http://127.0.0.1:5000/api?New_Month=$valueMonth&Year=$valueYear&priceThai=$valueThai";
-                                          print(url);
-                                          Data = await Getdata(url);
-                                          var DecodedData = jsonDecode(Data);
-                                          print('DecodedData $DecodedData');
-                                          print('Data $Data');
-                                          setState(() {
-                                            QueryText = DecodedData.toString();
-
-                                          });
 
                                           //  Navigator.of(context).pop();
                                         },
