@@ -103,17 +103,20 @@ class _MyHomePageState extends State<MyHomePage> {
           alignment: Alignment.center,
           children: [
             Container(
+              alignment: Alignment.center,
               width: 300, height: 200,
-                child: Image.asset('asset/images/check-correct.gif', height: 10,)),
+                child: Image.asset('asset/images/circular_progress.gif', height: 10, width: 10,)),
           ],
         ),
         actions: [
           TextButton(
-            child: Text("ตกลง",  style: GoogleFonts.mitr(
+            child: Text("ตกลง",
+              style: GoogleFonts.mitr(
               textStyle: TextStyle(
                   color: Colors.green,
                   fontSize: 22.0),
-            ),),
+            ),
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ],
@@ -141,39 +144,36 @@ class _MyHomePageState extends State<MyHomePage> {
             textAlign: TextAlign.center
 
         ),
-        content: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: 300,
-              height: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                      image: AssetImage('asset/images/cupertino_activity.gif'),
-                      fit: BoxFit.cover
-                  ),
-            ),
-            child: Text(
-              "กำลังเทรนโมเดล กรุณารอสักครู่",
-              style: GoogleFonts.mitr(
-                textStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0),
+        content: Container(
+          width: 300,
+          height: 130,
+        decoration: BoxDecoration(
+          // borderRadius: BorderRadius.circular(15),
+          image: DecorationImage(
+                  image: AssetImage('asset/images/cupertino_activity.gif'),
+                  fit: BoxFit.contain,
               ),
-            ),
+        ),
+        child: Text(
+          "กำลังเทรนโมเดล กรุณารอสักครู่",
+          textAlign: TextAlign.center,
+          style: GoogleFonts.mitr(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 20.0),
+          ),
+        ),
 
           ),
-
-          ]
-        ),
         actions: [
           TextButton(
-            child: Text("ตกลง",  style: GoogleFonts.mitr(
-              textStyle: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18.0),
-            ),),
+            child: Text("ตกลง",
+              style: GoogleFonts.mitr(
+                textStyle: TextStyle(
+                    color: Colors.green,
+                    fontSize: 22.0),
+              ),
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ],
