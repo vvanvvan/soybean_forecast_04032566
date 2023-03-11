@@ -79,25 +79,24 @@ class _MyHomePageState extends State<MyHomePage> {
   String month_fromexcel="";
 
   void _onItemTapped(int index) {
-    setState(() async {
+    setState(() {
 
-      url =
-      "http://127.0.0.1:5000/excel_value";
-      print(url);
-      Data = await Getdata(url);
-      var DecodedData = jsonDecode(Data);
-      print('DecodedData $DecodedData');
-      print('Data $Data');
-      month_fromexcel = DecodedData.toString();
-      print(month_fromexcel);
-
+      // url =
+      // "http://127.0.0.1:5000/excel_value";
+      // print(url);
+      // Data = await Getdata(url);
+      // var DecodedData = jsonDecode(Data);
+      // print('DecodedData $DecodedData');
+      // print('Data $Data');
+      // month_fromexcel = DecodedData.toString();
+      // print(month_fromexcel);
 
       _selectedIndex = index;
       print( _selectedIndex);
       if( _selectedIndex == 0){
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyApp()));
       }else if( _selectedIndex == 1){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage(text: month_fromexcel)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
       }
     });
   }

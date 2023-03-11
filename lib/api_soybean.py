@@ -501,9 +501,27 @@ def train_model():
 
 @app.route('/excel_value',methods=['GET'])
 def read_excelrow():
-	wan = "55555555555555555555555555555555555"
-	print("wannarak444444444444444444444444444444444444444444")
-	return jsonify(wan)
+	import tensorflow as tf
+	import pandas as pd
+
+	from keras.models import load_model
+
+	df = pd.read_excel('dataofPrice_Train.xlsx')
+
+	df['New_Month'] = pd.to_datetime(df['Date']).dt.strftime('%m').astype('int')
+	df['Year'] = pd.to_datetime(df['Date']).dt.strftime('%Y').astype('int')
+	print(df['Date'].iloc[-1])
+
+	print(df['New_Month'].iloc[-1])
+	print(df['Year'] .iloc[-1])
+
+	year_int = int(df['Year'] .iloc[-1]) + 543
+
+	MONTHS = ["เดือน","มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน",
+			  "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+	month = str(MONTHS[df['New_Month'].iloc[-1]])+" "+str(year_int)
+	print((month))
+	return jsonify(month)
 
 if __name__ == '__main__':
 	app.run(debug=False)

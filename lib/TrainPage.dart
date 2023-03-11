@@ -11,15 +11,13 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 
-
 class TrainPage extends StatelessWidget {
-  final String text;
-  const TrainPage({Key? key, required this.text}) : super(key: key);
+  const TrainPage({Key? key,}) : super(key: key);
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
 
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'train interface',
       theme: ThemeData(
@@ -42,6 +40,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  String month_fromexcel = " ";
+
+  void initState()  {
+    super.initState();
+    _excel_row();
+  }
+
+ _excel_row() async {
+    url = "http://127.0.0.1:5000/excel_value";
+    Data = await Getdata(url);
+    var DecodedData = jsonDecode(Data);
+    setState(() {
+      month_fromexcel = DecodedData.toString();
+    });
+
+  }
 
   var validdrop = Text ("โปรดเลือกเดือน",
     // overflow: TextOverflow.fade,
@@ -74,7 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String valueYear='';
   String valueThai='';
 
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -82,10 +96,10 @@ class _MyHomePageState extends State<MyHomePage> {
       if( _selectedIndex == 0){
         Navigator.of(this.context).push(MaterialPageRoute(builder: (context) => MyApp()));
       }
-      // else if( _selectedIndex == 1){
-      //   Navigator.of(this.context).push(MaterialPageRoute(builder: (context) => TrainPage(text: ,))); //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
-      //
-      // }
+      else if( _selectedIndex == 1){
+        Navigator.of(this.context).push(MaterialPageRoute(builder: (context) => TrainPage())); //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
+
+      }
     });
   }
   void dispose1() {
@@ -344,7 +358,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         });
                                       },
                                       decoration: InputDecoration(
-                                        hintText:  widget.title,
+                                        hintText:  month_fromexcel.toString(),
                                         hintStyle: GoogleFonts.mitr(
                                           textStyle: TextStyle(
                                               color: Colors.blue,
