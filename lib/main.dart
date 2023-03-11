@@ -50,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   );
 
-  bool _inLoading = false;
   int _selectedIndex = 0;
   final _formKey = GlobalKey<FormState>();
   final _text1 = TextEditingController();  //textediting

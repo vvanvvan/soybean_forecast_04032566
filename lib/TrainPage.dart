@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               alignment: Alignment.center,
               width: 300, height: 200,
-                child: Image.asset('asset/images/circular_progress.gif', height: 10, width: 10,)),
+                child: Image.asset('asset/images/check-correct.gif', height: 270, width: 270,)),
           ],
         ),
         actions: [
