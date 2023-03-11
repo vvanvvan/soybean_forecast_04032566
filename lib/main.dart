@@ -10,6 +10,7 @@ import 'TrainPage.dart';
 
 void main() {
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -75,14 +76,28 @@ class _MyHomePageState extends State<MyHomePage> {
   String valueMonth='';
   String valueYear='';
 
+  String month_fromexcel="";
+
   void _onItemTapped(int index) {
-    setState(() {
+    setState(() async {
+
+      url =
+      "http://127.0.0.1:5000/excel_value";
+      print(url);
+      Data = await Getdata(url);
+      var DecodedData = jsonDecode(Data);
+      print('DecodedData $DecodedData');
+      print('Data $Data');
+      month_fromexcel = DecodedData.toString();
+      print(month_fromexcel);
+
+
       _selectedIndex = index;
       print( _selectedIndex);
       if( _selectedIndex == 0){
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyApp()));
       }else if( _selectedIndex == 1){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage(text: month_fromexcel)));
       }
     });
   }
@@ -526,7 +541,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           _text2.text.isEmpty ? _validate2 = true : _validate2= false;
                                           if(_validate2==false&&_validate1==false&&_validate3==false) {
                                             url =
-                                            "http://127.0.0.1:5000/api?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
+                                            "http://127.0.0.1:5000/predict_model?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
                                             print(url);
                                             _fetchData(context);
                                             Data = await Getdata(url);
@@ -536,7 +551,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             setState(() {
                                               QueryText = DecodedData.toString();
 
-                                              print(QueryText + 'wan');
+                                              print(QueryText);
                                             });
                                           }else{
                                             setState(() {
@@ -606,7 +621,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.grey.shade50,
-                                    hintText: QueryText,
+                                    hintText:  QueryText,
                                     hintStyle: GoogleFonts.mitr(
                                       textStyle: TextStyle(
                                           color: Colors.black,

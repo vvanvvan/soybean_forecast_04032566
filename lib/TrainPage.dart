@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,9 +7,14 @@ import 'package:soybean_forecast/main.dart';
 import 'API.dart';
 import 'dart:convert';
 
+import 'dart:io';
+import 'package:path/path.dart';
+import 'package:excel/excel.dart';
+
 
 class TrainPage extends StatelessWidget {
-  const TrainPage({Key? key}) : super(key: key);
+  final String text;
+  const TrainPage({Key? key, required this.text}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -24,6 +31,7 @@ class TrainPage extends StatelessWidget {
     );
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -43,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fontSize: 16.0),
     ),
   );
+
   int _selectedIndex = 0;
   final _formKey = GlobalKey<FormState>();
   final _text1 = TextEditingController();  //textediting
@@ -51,7 +60,9 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _validate2= false;//variable to store the bool value
   bool _validate3= false;
 
-  String? _chosenValue;
+
+  String? excelTH ="เมษายน 2565";
+
   int index=0;
   String? selectedValue;
   String url='';
@@ -59,20 +70,22 @@ class _MyHomePageState extends State<MyHomePage> {
   var Data;
   String QueryText = '';
 
-
   String valueMonth='';
   String valueYear='';
   String valueThai='';
+
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       print( _selectedIndex);
       if( _selectedIndex == 0){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyApp()));
-      }else if( _selectedIndex == 1){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage())); //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
+        Navigator.of(this.context).push(MaterialPageRoute(builder: (context) => MyApp()));
       }
+      // else if( _selectedIndex == 1){
+      //   Navigator.of(this.context).push(MaterialPageRoute(builder: (context) => TrainPage(text: ,))); //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrainPage()));
+      //
+      // }
     });
   }
   void dispose1() {
@@ -103,8 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
           alignment: Alignment.center,
           children: [
             Container(
-              alignment: Alignment.center,
-              width: 300, height: 200,
+                alignment: Alignment.center,
+                width: 300, height: 200,
                 child: Image.asset('asset/images/check-correct.gif', height: 270, width: 270,)),
           ],
         ),
@@ -112,10 +125,10 @@ class _MyHomePageState extends State<MyHomePage> {
           TextButton(
             child: Text("ตกลง",
               style: GoogleFonts.mitr(
-              textStyle: TextStyle(
-                  color: Colors.green,
-                  fontSize: 22.0),
-            ),
+                textStyle: TextStyle(
+                    color: Colors.green,
+                    fontSize: 22.0),
+              ),
             ),
             onPressed: () => Navigator.pop(context),
           ),
@@ -147,24 +160,24 @@ class _MyHomePageState extends State<MyHomePage> {
         content: Container(
           width: 300,
           height: 130,
-        decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(15),
-          image: DecorationImage(
-                  image: AssetImage('asset/images/cupertino_activity.gif'),
-                  fit: BoxFit.contain,
-              ),
-        ),
-        child: Text(
-          "กำลังเทรนโมเดล กรุณารอสักครู่",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.mitr(
-            textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 20.0),
+          decoration: BoxDecoration(
+            // borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: AssetImage('asset/images/cupertino_activity.gif'),
+              fit: BoxFit.contain,
+            ),
           ),
-        ),
+          child: Text(
+            "กำลังเทรนโมเดล กรุณารอสักครู่",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.mitr(
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0),
+            ),
+          ),
 
-          ),
+        ),
         actions: [
           TextButton(
             child: Text("ตกลง",
@@ -180,7 +193,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
       ),
     );
-
   }
 
   @override
@@ -207,7 +219,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
 
-
     int count = now.month;
     int countYear = 1;
     var count_month=12;
@@ -225,6 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       }
     }
+
     return Scaffold(
       // appBar: AppBar(
       // title: Text('Soybean Forecast'),
@@ -295,7 +307,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.only(top: 20.0),
                   child:  Container(
                     alignment: Alignment.bottomCenter,
-                    width: 685,
+                    width: 663,
                     height: 306,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -311,90 +323,43 @@ class _MyHomePageState extends State<MyHomePage> {
                                 children: [
                                   Container(
                                     width: 230,
-                                    child: Text('เลือกเดือนที่ต้องการเพิ่มข้อมูล ',style: GoogleFonts.mitr(
+                                    child: Text('เดือนที่ต้องเพิ่มข้อมูล ',style: GoogleFonts.mitr(
                                       textStyle: TextStyle(
                                           color: Colors.black87,
                                           fontSize: 18.0),
                                     ),
                                     ),
                                   ),
-                                  SizedBox(width: 100.0,), //35
+                                  SizedBox(width: 80.0,), //35
                                   SizedBox(
                                     // decoration: BoxDecoration(color: Colors.grey.shade50,),
                                     height: 70,
                                     width: 150.0,
-                                    child: Form(
-                                      key: _formKey,
-                                      child: DropdownButtonFormField(
-                                        isExpanded: true,
-                                        isDense: true,
-                                        // focusColor:Colors.white,
-                                        style: GoogleFonts.mitr(
+                                    child: TextField(
+                                      controller: _text1,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          excelTH = value;
+                                          _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+                                        });
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText:  widget.title,
+                                        hintStyle: GoogleFonts.mitr(
                                           textStyle: TextStyle(
-                                            // overflow: TextOverflow.ellipsis,
-                                              color: Colors.black,
+                                              color: Colors.blue,
                                               fontSize: 18.0),
                                         ),
-                                        value: _chosenValue,
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                        ),
-                                        // isDense: true,
-                                        items: items.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text (value,
-                                              // overflow: TextOverflow.fade,
-                                              style:GoogleFonts.mitr(
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16.0),
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                        validator: (value) {
-                                          if (value == null) {
-                                            _validate3 = true;
-                                            return "โปรดเลือกเดือน";
-                                          }else{
-                                            _validate3 = false;
-                                          }
-                                          return null;
-                                        },
-                                        hint:Text(
-                                          "เลือกเดือน",
-                                          style: GoogleFonts.mitr(
-                                            textStyle: TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: 15.0),
-                                          ),
-                                        ),
-                                        onChanged: (String? value) {
-
-                                          final splitted = value?.split(' ');
-                                          print(splitted![0]);
-                                          switch(splitted[0]){
-                                            case "มกราคม" : {valueMonth='1'; valueYear=splitted[1];} break;
-                                            case "กุมภาพันธ์" : {valueMonth='2'; valueYear=splitted[1];}break;
-                                            case "มีนาคม" : {valueMonth='3'; valueYear=splitted[1];} break;
-                                            case "เมษายน" : {valueMonth='4'; valueYear=splitted[1];} break;
-                                            case "พฤษภาคม" : {valueMonth='5'; valueYear=splitted[1];} break;
-                                            case "มิถุนายน" : {valueMonth='6'; valueYear=splitted[1];} break;
-                                            case "กรกฎาคม" : {valueMonth='7'; valueYear=splitted[1];} break;
-                                            case "สิงหาคม" : {valueMonth='8'; valueYear=splitted[1];} break;
-                                            case "กันยายน" : {valueMonth='9'; valueYear=splitted[1];} break;
-                                            case "ตุลาคม" :{valueMonth='10'; valueYear=splitted[1];} break;
-                                            case "พฤศจิกายน" : {valueMonth='11'; valueYear=splitted[1];} break;
-                                            case "ธันวาคม" : {valueMonth='12'; valueYear=splitted[1];} break;
-                                          }
-                                          print(' month $valueMonth and year $valueYear');
-                                          setState(() {
-                                            _chosenValue = value;
-                                          });
-                                        },
+                                          border: InputBorder.none,
                                       ),
+                                      style: GoogleFonts.mitr(
+                                        textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18.0),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      readOnly: true,
+
                                     ),
                                   ),
                                 ]
@@ -415,7 +380,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 80.0,),
+                                SizedBox(width: 60.0,),
                                 FractionalTranslation(
                                   translation: Offset(0,0),
                                   child: SizedBox(
@@ -493,9 +458,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ),
                                         onPressed: () async {
 
-                                          if(_validate2==false&&_formKey.currentState!.validate()) {
+                                          // _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
+                                          _text2.text.isEmpty ? _validate2 = true : _validate2= false;
+
+                                          if(_validate2==false) {
                                             showDialogUpdate(context);
-                                            url = "http://127.0.0.1:5000/api?New_Month=$valueMonth&Year=$valueYear&priceThai=$valueThai";
+                                            url = "http://127.0.0.1:5000/update_data?New_Month=$valueMonth&Year=$valueYear&priceThai=$valueThai";
                                             print(url);
                                             Data = await Getdata(url);
                                             var DecodedData = jsonDecode(Data);
@@ -508,17 +476,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                           }else{
                                             setState(() {
+                                              // _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                               _text2.text.isEmpty ? _validate2 = true : _validate2= false;
-                                            });
-                                          }
 
-                                          if (_formKey.currentState!.validate()) {
-                                            _formKey.currentState!.save();
+                                            });
                                           }
 
                                           //  Navigator.of(context).pop();
                                         },
-                                        child: Text("Update Data" ,style: GoogleFonts.mitr(
+                                        child: Text("อัปเดตข้อมูล" ,style: GoogleFonts.mitr(
                                           textStyle: TextStyle(
                                               color: Colors.white,
                                               fontSize: 18.0),
@@ -581,8 +547,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                             borderRadius: BorderRadius.circular(10.0),
                                           ),
                                         ),
-                                        onPressed: () async { showDialogTrain(context); },
-                                        child: Text("Train Model" ,style: GoogleFonts.mitr(
+                                        onPressed: () async {
+
+                                          showDialogTrain(context);
+                                          url = "http://127.0.0.1:5000/train_model?New_Month=$valueMonth&Year=$valueYear&priceThai=$valueThai";
+                                          print(url);
+                                          Data = await Getdata(url);
+                                          var DecodedData = jsonDecode(Data);
+                                          print('DecodedData $DecodedData');
+                                          print('Data $Data');
+                                          setState(() {
+                                            QueryText = DecodedData.toString();
+
+                                          });
+
+
+                                        },
+                                        child: Text("เทรนโมเดล" ,style: GoogleFonts.mitr(
                                           textStyle: TextStyle(
                                               color: Colors.white,
                                               fontSize: 18.0),
@@ -618,6 +599,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         selectedLabelStyle: GoogleFonts.mitr(
+
           textStyle: TextStyle(
               color: Colors.black,
               fontSize: 20.0),

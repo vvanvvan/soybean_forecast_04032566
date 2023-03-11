@@ -5,7 +5,6 @@ from keras.preprocessing.sequence import TimeseriesGenerator
 
 app = Flask(__name__)
 
-
 @app.route('/predict_model',methods=['GET'])
 def predict_model():
 	from datetime import datetime
@@ -420,11 +419,9 @@ def update_data():
 @app.route('/train_model',methods=['GET'])
 def train_model():
 
-
 	from tensorflow.keras.layers import Bidirectional
 	import tensorflow as tf
 	import pandas as pd
-
 
 	from keras.models import load_model
 
@@ -501,6 +498,12 @@ def train_model():
 
 
 	return jsonify(0)
+
+@app.route('/excel_value',methods=['GET'])
+def read_excelrow():
+	wan = "55555555555555555555555555555555555"
+	print("wannarak444444444444444444444444444444444444444444")
+	return jsonify(wan)
 
 if __name__ == '__main__':
 	app.run(debug=False)
